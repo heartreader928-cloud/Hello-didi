@@ -1,0 +1,130 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Surprise Card</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: black;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      overflow: hidden;
+    }/* stars */
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(white 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.3;
+}
+
+.moon {
+  width: 120px;
+  height: 120px;
+  background: #f5f3ce;
+  border-radius: 50%;
+  box-shadow: 0 0 30px #f5f3ce;
+  margin: 0 auto 20px;
+}
+
+.card {
+  width: 320px;
+  min-height: 420px;
+  background: rgba(0,0,0,0.7);
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+h2 { color: #ffd166; }
+p { color: #eee; }
+
+button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #ff4d6d, #ffd166);
+  color: black;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.hidden { display: none; }
+
+.popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #111;
+  border: 1px solid #ffd166;
+  padding: 20px;
+  border-radius: 15px;
+  z-index: 10;
+}
+
+  </style>
+</head>
+<body><div class="card">  <!-- PAGE 1 -->  <div id="page1">
+    <div class="moon"></div>
+    <h2>Hello Laxmi didi 🌙</h2>
+    <p>Kaise ho?</p>
+    <button onclick="okHai()">Haan theek hu</button>
+    <button onclick="notOk()">Nahi theek hu</button>
+  </div>  <!-- PAGE 2 -->  <div id="page2" class="hidden">
+    <h2>Laxmi kon hai? ✨</h2>
+    <button onclick="optionMsg('Accha hua bata diye 😊', true)">Human</button>
+    <button onclick="optionMsg('Bhagoooo 😱', false)">Alien</button>
+    <button onclick="optionMsg('Oh lagta hai thoda sa bohot beautiful ho 💖', false)">Mermaid</button>
+    <button onclick="optionMsg('Nahi ho 😄', false)">Pagal</button>
+    <button id="nextBtn" class="hidden" onclick="goPage3()">Next ➡️</button>
+  </div>  <!-- PAGE 3 -->  <div id="page3" class="hidden">
+    <h2>Thank You 🌟</h2>
+    <p>Kaisa laga ye chhota sa surprise?</p>
+    <button onclick="alert('Smile aa gayi to mission successful 😄')">Ok 👍</button>
+  </div></div><div id="popup" class="popup hidden"></div><script>
+  let clicked = 0;
+
+  function okHai() {
+    document.getElementById('page1').classList.add('hidden');
+    document.getElementById('page2').classList.remove('hidden');
+  }
+
+  function notOk() {
+    showPopup('Kya hua? Batao 💛');
+  }
+
+  function optionMsg(msg, delayNext) {
+    showPopup(msg);
+    clicked++;
+    if (clicked >= 4) {
+      setTimeout(() => {
+        document.getElementById('nextBtn').classList.remove('hidden');
+      }, 500);
+    }
+  }
+
+  function goPage3() {
+    document.getElementById('page2').classList.add('hidden');
+    document.getElementById('page3').classList.remove('hidden');
+  }
+
+  function showPopup(text) {
+    const pop = document.getElementById('popup');
+    pop.textContent = text;
+    pop.classList.remove('hidden');
+    setTimeout(() => pop.classList.add('hidden'), 3000);
+  }
+</script></body>
+</html>
